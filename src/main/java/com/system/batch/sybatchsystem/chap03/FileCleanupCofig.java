@@ -22,19 +22,17 @@ public class FileCleanupCofig {
 
     @Bean
     public Tasklet fileCleanupTasklet() {
-        return new FileCleanUpTasklet("/test-logs", 30);
+        return new FileCleanUpTasklet("./test-logs", 30);
     }
 
     @Bean
     public Step fileCleanupStep() {
-        return new StepBuilder("fileCleanupStep", jobRepository)
-                .tasklet(fileCleanupTasklet(), transactionManager).build();
+        return new StepBuilder("fileCleanupStep", jobRepository).tasklet(fileCleanupTasklet(), transactionManager).build();
     }
 
     @Bean
     public Job fileCleanupJob() {
-        return new JobBuilder("fileCleanupJob", jobRepository)
-                .start(fileCleanupStep()).build();
+        return new JobBuilder("fileCleanupJob", jobRepository).start(fileCleanupStep()).build();
     }
 
 }
