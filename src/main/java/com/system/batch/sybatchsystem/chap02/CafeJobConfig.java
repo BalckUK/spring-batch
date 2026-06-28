@@ -7,6 +7,7 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.Step;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.infrastructure.repeat.RepeatStatus;
+import org.springframework.batch.infrastructure.support.transaction.ResourcelessTransactionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -53,7 +54,8 @@ public class CafeJobConfig {
                 System.out.println("[완료] 주문하신 커피" + ORDER_TARGET + "잔 나왔습니다");
                 return RepeatStatus.FINISHED;
             }
-        }, transactionManager).build();
+        }, new ResourcelessTransactionManager()).build(); // 트랜젝션이 필요하지 않은 경우 사용하는 매니저
+//        }, transactionManager).build(); // 트랜젝션이 필요한 경우 사용하는 매니저
     }
 
     @Bean
