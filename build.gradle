@@ -35,6 +35,6 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-bootRun {
-    jvmArgs = ['-Dfile.encoding=UTF-8', '-Dstdout.encoding=UTF-8']
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
